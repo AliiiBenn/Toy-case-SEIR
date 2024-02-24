@@ -1,39 +1,44 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 
 
 public class Grid {
-    private List<List<List<Individu>>> grid;
+    private ArrayList<ArrayList<ArrayList<Individu>>> grid;
 
-    public Grid() {
-        initializeGrid();
+
+
+    private void initializeGrid(int lines, int columns) {
+
+    }
+
+    
+
+    public ArrayList<Individu> getIndividus(int line, int column) {
+        return grid.get(line).get(column);
+    }
+
+    public void addIndividu(Individu individu, int line, int column) {
+        grid.get(line).get(column).add(individu);
+    }
+
+    public void removeIndividu(int line, int column, int index) {
+        grid.get(line).get(column).remove(index);
+    }
+
+    public void moveIndividu(int line, int column, int index, int newLine, int newColumn) {
+        Individu individu = grid.get(line).get(column).get(index);
+        grid.get(line).get(column).remove(index);
+        grid.get(newLine).get(newColumn).add(individu);
     }
 
 
-    private void initializeGrid() {
-        grid = new ArrayList<>();
-
-        for (int i = 0; i < 300; i++) {
-            List<List<Individu>> row = new ArrayList<>();
-            for (int j = 0; j < 300; j++) {
-                row.add(new ArrayList<>());
-            }
-            grid.add(row);
-        }
-    }
-
-    public void addIndividu(Individu individu, int x, int y) {
-        grid.get(x).get(y).add(individu);
-    }
-
-    public void removeIndividu(Individu individu, int x, int y) {
-        grid.get(x).get(y).remove(individu);
-    }
-
-    public List<Individu> getIndividus(int x, int y) {
-        return grid.get(x).get(y);
+    public static Grid createGrid(int lines, int columns) {
+        Grid grid = new Grid();
+        
+        return grid;
     }
 
 }

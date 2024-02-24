@@ -16,5 +16,13 @@ public class Individu {
         this.currentStatus = initialStatus;
 
     }
+
+    public Status getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(Status currentStatus) {
+        this.currentStatus = currentStatus;
+    }
     
 }
