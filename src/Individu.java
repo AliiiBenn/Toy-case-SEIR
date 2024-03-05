@@ -5,24 +5,18 @@ public class Individu {
 
 
 
-    private Status currentStatus;
+    private Status currentStatus = Status.SUSCEPTIBLE;
 
     private int daysExposed;
     private int daysInfected;
     private int daysRecovered;
 
 
-    public Individu(Status initialStatus) {
-        this.currentStatus = initialStatus;
+    public Individu() {
+        
 
     }
 
-    public Status getCurrentStatus() {
-        return currentStatus;
-    }
 
-    public void setCurrentStatus(Status currentStatus) {
-        this.currentStatus = currentStatus;
-    }
     
 }
