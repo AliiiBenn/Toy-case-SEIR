@@ -42,6 +42,7 @@ public class Grid {
     }
 
 
+
     public Individu getIndividu(int x, int y, int index) {
         return grid.get(x).get(y).get(index);
     }
@@ -60,10 +61,14 @@ public class Grid {
     public ArrayList<Individu> getNeighbours(int x, int y, int index) {
         ArrayList<Individu> neighbours = new ArrayList<Individu>();
 
-        for (int yIndex = y - 1; yIndex <= y + 1; yIndex++) {
-            for (int xIndex = x - 1; xIndex <= x + 1; xIndex++) {
+        Individu currentIndividu = this.getIndividu(x, y, index);
+
+        int gridSize = getSize();
+
+        for (int yIndex = Math.max(0, y - 1); yIndex <= Math.min(gridSize - 1, y + 1); yIndex++) {
+            for (int xIndex = Math.max(0, x - 1); xIndex <= Math.min(gridSize - 1, x + 1); xIndex++) {
                 this.getIndividus(xIndex, yIndex).forEach((individu) -> {
-                    if (individu != this.getIndividu(x, y, index)) {
+                    if (individu != currentIndividu) {
                         neighbours.add(individu);
                     }
                 });
@@ -71,6 +76,47 @@ public class Grid {
         }
 
         return neighbours;
+    }
+
+
+    private ArrayList<Individu> getAllIndividus() {
+        ArrayList<Individu> allIndividus = new ArrayList<Individu>();
+
+        for (ArrayList<ArrayList<Individu>> row : grid) {
+            for (ArrayList<Individu> column : row) {
+                allIndividus.addAll(column);
+            }
+        }
+
+        return allIndividus;
+    }
+
+
+    public void moveIndividu(int currentX, int currentY, int newX, int newY, Individu individu) {
+        Status status = individu.getCurrentStatus();
+        int currentStatusDays = individu.getCurrentStatusDays();
+
+        int daysExposed = individu.getDaysExposed();
+        int daysInfected = individu.getDaysInfected();
+        int daysRecovered = individu.getDaysRecovered();
+
+        grid.get(x).get(y).remove(individu);
+
+        Individu newIndividu = Individu.createIndividu(status, currentStatusDays, daysExposed, daysInfected, daysRecovered);
+
+        addIndividu(newIndividu, (int) (Math.random() * getSize()), (int) (Math.random() * getSize()));
+
+    }
+
+
+    public void moveAllIndividus() {
+        ArrayList<Individu> allIndividus = getAllIndividus();
+
+        for (Individu individu : allIndividus) {
+            int x = (int) (Math.random() * getSize());
+            int y = (int) (Math.random() * getSize());
+            moveIndividu(x, y, individu);
+        }
     }
 
 

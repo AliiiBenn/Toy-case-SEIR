@@ -3,23 +3,16 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
 
-        Grid grid = new Grid(9);
+        Grid grid = new Grid(300);
 
         
+        for (int i = 0; i < 20000; i++) {
+            Individu individu = new Individu();
+            grid.addIndividu(individu, (int) (Math.random() * 300), (int) (Math.random() * 300));
+        }
         
-        grid.addIndividu(new Individu(), 5, 5);
 
-        grid.addIndividu(new Individu(), 4, 4);
-        grid.addIndividu(new Individu(), 5, 4);
-        grid.addIndividu(new Individu(), 6, 4);
 
-        grid.addIndividu(new Individu(), 4, 5);
-        grid.addIndividu(new Individu(), 5, 5);
-        grid.addIndividu(new Individu(), 6, 5);
-
-        grid.addIndividu(new Individu(), 4, 6);
-        grid.addIndividu(new Individu(), 5, 6);
-        grid.addIndividu(new Individu(), 6, 6);        
 
         for (ArrayList<ArrayList<Individu>> row : grid.getGrid()) {
             System.out.println(row);
@@ -27,11 +20,7 @@ public class Main {
 
         System.out.println();
 
-        System.out.println(grid.getNeighbours(5, 5, 0));
-        
-
-        // System.out.println(grid.getIndividu(0, 0, 0));
-        // System.out.println(grid.getNeighbours(0, 0, 0));
+  
 
 
     }
