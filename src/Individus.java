@@ -1,27 +1,27 @@
 import java.util.ArrayList;
 
-public class Individus {
+public final class Individus {
     private ArrayList<Individu> individus;
-    private int size;
-    
+
     
     public ArrayList<Individu> getIndividus() {
         return individus;
     }
 
-    public int getSize() {
-        return size;
-    }
-
-    public void incrementSize() {
-        size++;
-    }
-
-    public void addIndividu(Individu individu) {
+    public void addNewIndividu(Individu individu) {
         individus.add(individu);
     }
 
-    public Individu getIndividu(int index) {
-        return individus.get(index);
+    public void removeIndividu(Individu individu) {
+        individus.remove(individu);
     }
+
+    public void removeIndividu(int index) {
+        individus.remove(index);
+    }
+
+    public Boolean isIndividu(Individu individu) {
+        return individus.contains(individu);
+    }
+
 }

@@ -1,55 +1,47 @@
 
 
-
-public class Individu {
-
-
-
-    private Status currentStatus = Status.SUSCEPTIBLE;
-    private int currentStatusDays = 0;
-
-    private int daysExposed;
-    private int daysInfected;
-    private int daysRecovered;
+// TODO: Instancier les variables dE, dI et dR de façon aléatoire avec une distribution exponentielle...
+// TODO: Vérifier le temps écoulé pour passer d'un état à un autre
 
 
-    public Individu() {
+
+public final class Individu {
+    private Status statusActuel;
+
+    private int dE;
+    private int dI;
+    private int dR;
+
+
+    private Individu(Status statusActuel, int dE, int dI, int dR) {
+        this.statusActuel = statusActuel;
+    }
+
+    public Status getStatusActuel() {
+        return statusActuel;
+    }
+
+    public void setStatusActuel(Status statusActuel) {
         
-
+        this.statusActuel = statusActuel;
     }
 
-
-    public Status getCurrentStatus() {
-        return currentStatus;
+    public int getdE() {
+        return dE;
     }
 
-    public int getCurrentStatusDays() {
-        return currentStatusDays;
+    public int getdI() {
+        return dI;
     }
 
-    public int getDaysExposed() {
-        return daysExposed;
+    public int getdR() {
+        return dR;
     }
 
-    public int getDaysInfected() {
-        return daysInfected;
+    public static Individu createIndividu() {
+        int valeurDefautTemporaire = 1;
+
+        return new Individu(Status.SUSCEPTIBLE, valeurDefautTemporaire, valeurDefautTemporaire, valeurDefautTemporaire);
+
     }
-
-    public int getDaysRecovered() {
-        return daysRecovered;
-    }
-
-
-    public static Individu createIndividu(Status status, int currentStatusDays, int daysExposed, int daysInfected, int daysRecovered) {
-        Individu individu = new Individu();
-        individu.currentStatus = status;
-        individu.currentStatusDays = currentStatusDays;
-        individu.daysExposed = daysExposed;
-        individu.daysInfected = daysInfected;
-        individu.daysRecovered = daysRecovered;
-        return individu;
-    }
-
-
-    
 }
