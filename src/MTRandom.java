@@ -230,7 +230,6 @@ public final class MTRandom extends Random {
             mt = new int[N];
 
         // Unlike the C-code, this version uses a local variable for the loop rather
-        // than directly
         // modifying the state vector index field. This means we must also set the state
         // vector index
         // manually.

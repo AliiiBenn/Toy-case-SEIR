@@ -22,23 +22,73 @@ import java.util.ArrayList;
 
 public final class Grille {
     private ArrayList<ArrayList<Individus>> grille;
+    private int lignes;
+    private int colonnes;
 
 
+    private Grille(int lignes, int colonnes) {
+        this.lignes = lignes;
+        this.colonnes = colonnes;
 
+        grille = new ArrayList<>(lignes);
 
-    private ArrayList<Individu> getVoisins(int x, int y) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        for (int i = 0; i < lignes; i++) {
+            grille.add(new ArrayList<>(colonnes));
+
+            for (int j = 0; j < colonnes; j++) {
+                grille.get(i).add(new Individus());
+            }
+        }
     }
 
-    private boolean isVoisinInfecte(ArrayList<Individu> voisins) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public ArrayList<ArrayList<Individus>> getGrille() {
+        return grille;
     }
 
-    private void deplacerIndividu(Individu individu, Individus individusOrigine, Individus individuseDestination) {
-        throw new UnsupportedOperationException("Not implemented yet");
+
+    public ArrayList<Individu> getVoisins(int x, int y) {
+        ArrayList<Individu> voisins = new ArrayList<Individu>();
+
+        for (int i = x - 1; i <= x + 1; i++) {
+            for (int j = y - 1; j <= y + 1; j++) {
+                if (i >= 0 && i < lignes && j >= 0 && j < colonnes) {
+                    voisins.addAll(grille.get(i).get(j).getIndividus());
+                }
+            }
+        }
+        
+        return voisins;
     }
 
-    private Individus selectionnerListeAleatoire() {
-        throw new UnsupportedOperationException("Not implemented yet");
+    public boolean isVoisinInfecte(ArrayList<Individu> voisins) {
+        Individus individus = Individus.createIndividus(voisins);
+
+        return individus.isSomeoneInfected();
+    }
+
+    public void deplacerIndividu(Individu individu, Individus individusOrigine, Individus individusDestination) {
+        individusOrigine.removeIndividu(individu);
+        individusDestination.addNewIndividu(individu);
+    }
+
+    public Individus selectionnerListeAleatoire() {
+        MTRandom generateurAleatoire = new MTRandom();
+
+        return grille.get(generateurAleatoire.next(16) % 299).get(generateurAleatoire.next(16) % 299);
+    }
+
+
+    public void ajouterIndividu(Individu individu, int x, int y) {
+        grille.get(x).get(y).addNewIndividu(individu);
+    }
+
+
+    public static Grille creerGrille(int lignes, int colonnes) {
+        Grille grille = new Grille(lignes, colonnes);
+
+
+
+
+        return grille;
     }
 }
