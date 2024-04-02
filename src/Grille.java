@@ -46,7 +46,19 @@ public final class Grille {
     }
 
 
+    /**
+     * 
+     * @param x L'indice de la ligne des individus que l'on veut 
+     * @param y L'indice de la colonne des individus que l'on veut
+     * @return ArrayList<Individu> La liste des individus voisins de la case (x, y). On renvoie une liste qui contient tous les individus des cases voisines de la case (x, y).
+     * @throws IndexOutOfBoundsException Si les indices x et y sont en dehors de la grille
+     * 
+     */
     public ArrayList<Individu> getVoisins(int x, int y) {
+        if (x < 0 || x >= lignes || y < 0 || y >= colonnes) {
+            throw new IndexOutOfBoundsException("Les indices x et y doivent être compris entre 0 et " + (lignes - 1) + " pour x et " + (colonnes - 1) + " pour y.");
+        }
+
         ArrayList<Individu> voisins = new ArrayList<Individu>();
 
         for (int i = x - 1; i <= x + 1; i++) {
@@ -60,35 +72,71 @@ public final class Grille {
         return voisins;
     }
 
+    /**
+     * 
+     * @param voisins Une liste d'individus qui représente les voisins d'un individu
+     * @return boolean true si un individu parmi la liste des voisins est infecté, false sinon
+     * 
+     */
     public boolean isVoisinInfecte(ArrayList<Individu> voisins) {
         Individus individus = Individus.createIndividus(voisins);
 
         return individus.isSomeoneInfected();
     }
 
+    
+    /**
+     * Déplace un individu d'une liste d'individus à une autre liste d'individus
+     * 
+     * @param individu L'individu que l'on veut déplacer
+     * @param individusOrigine La liste d'individus d'origine de l'individu
+     * @param individusDestination La liste d'individus de destination de l'individu
+     * 
+     */
     public void deplacerIndividu(Individu individu, Individus individusOrigine, Individus individusDestination) {
         individusOrigine.removeIndividu(individu);
         individusDestination.addNewIndividu(individu);
     }
 
+    /**
+     * Méthode utilitaire pour sélectionner une liste d'individus aléatoire de la grille
+     * 
+     * 
+     * @return Individus Une liste d'individus aléatoire de la grille
+     * 
+     */
     public Individus selectionnerListeAleatoire() {
+        // TODO: Mettre dans une classe utilitaire
         MTRandom generateurAleatoire = new MTRandom();
 
         return grille.get(generateurAleatoire.next(16) % 299).get(generateurAleatoire.next(16) % 299);
     }
 
 
+    /**
+     * Ajoute un individu à une liste d'individus aléatoire de la grille
+     * 
+     * @param individu L'individu que l'on veut ajouter
+     * 
+     */
     public void ajouterIndividu(Individu individu, int x, int y) {
         grille.get(x).get(y).addNewIndividu(individu);
     }
 
+    public ArrayList<Individu> getIndividus(int x, int y) {
+        return grille.get(x).get(y).getIndividus();
+    }
 
+
+    /**
+     * 
+     * @param lignes Le nombre de lignes de la grille
+     * @param colonnes Le nombre de colonnes de la grille
+     * @return Grille La grille d'individus vide
+     * 
+     */
     public static Grille creerGrille(int lignes, int colonnes) {
         Grille grille = new Grille(lignes, colonnes);
-
-
-
-
         return grille;
     }
 }

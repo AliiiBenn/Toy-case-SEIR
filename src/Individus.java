@@ -40,13 +40,13 @@ public final class Individus {
 
 
     public static Individus createIndividus(ArrayList<Individu> individus) {
-        Individus individus = new Individus();
+        Individus individusTemporaire = new Individus();
 
         for (Individu individu : individus) {
-            individus.addNewIndividu(individu);
+            individusTemporaire.addNewIndividu(individu);
         }
 
-        return individus;
+        return individusTemporaire;
     }
 
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Main {
     Grille grille;
@@ -5,10 +6,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Grille grille = Grille.creerGrille(300, 300);
+        final int nbLignes = 2;
+        final int nbColonnes = 2;
+
+        Grille grille = Grille.creerGrille(nbLignes, nbColonnes);
         MTRandom generateurAleatoire = new MTRandom();
   
-        final int nbIndividus = 20000;
+        final int nbIndividus = 1;
 
         // System.out.println(grille.getGrille());
 
@@ -16,11 +20,40 @@ public class Main {
             Individu individu = Individu.createIndividu();
 
 
-            grille.ajouterIndividu(individu, generateurAleatoire.next(16) % 299, generateurAleatoire.next(16) % 299);
+            grille.ajouterIndividu(individu, generateurAleatoire.next(16) % nbLignes, generateurAleatoire.next(16) % nbColonnes);
         }
 
-        randomInfectIndividus(10);
+        
+        ArrayList<ArrayList<Individus>> grilleTemporaire = grille.getGrille();
 
+        int x = 0;
+        int y = 0;
+
+
+        for (ArrayList<Individus> ligne : grilleTemporaire) {
+            for (Individus individus : ligne) {
+                System.out.println(individus.getIndividus());
+
+                if (individus.getIndividus().size() > 0) {
+                    x = grilleTemporaire.indexOf(ligne);
+                    y = ligne.indexOf(individus);
+                }
+            }
+        }
+
+        grille.deplacerIndividu(
+            grille.getIndividus(x, y).get(0),
+            grille.getGrille().get(x).get(y),
+            grille.getGrille().get(1).get(1)
+        );
+        
+        System.out.println("Après déplacement");
+
+        for (ArrayList<Individus> ligne : grilleTemporaire) {
+            for (Individus individus : ligne) {
+                System.out.println(individus.getIndividus());
+            }
+        }
 
 
     }
