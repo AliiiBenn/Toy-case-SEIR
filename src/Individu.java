@@ -12,7 +12,7 @@ public final class Individu {
     private int dI;
     private int dR;
 
-    private int daysInCurrentStatus = 0;
+    private int joursStatusActuel = 0;
 
 
     private Individu(Status statusActuel) {
@@ -31,32 +31,32 @@ public final class Individu {
         this.statusActuel = statusActuel;
     }
 
-    public int getDaysInCurrentStatus() {
-        return daysInCurrentStatus;
+    public int getJoursStatusActuel() {
+        return joursStatusActuel;
     }
 
-    public void increaseDaysInCurrentStatus() {
-        daysInCurrentStatus++;
+    private void increaseJoursStatusActuel() {
+        joursStatusActuel++;
     }
 
-    public void resetDaysInCurrentStatus() {
-        daysInCurrentStatus = 0;
+    private void resetJoursStatusActuel() {
+        joursStatusActuel = 0;
     }
 
-    public Boolean isReadyToChangeStatus() {
+    private Boolean isDelaiStatusDepasse() {
         switch (statusActuel) {
             case EXPOSED:
-                return daysInCurrentStatus >= dE;
+                return joursStatusActuel >= dE;
             case INFECTED:
-                return daysInCurrentStatus >= dI;
+                return joursStatusActuel >= dI;
             case RECOVERED:
-                return daysInCurrentStatus >= dR;
+                return joursStatusActuel >= dR;
             default:
                 return false;
         }
     }
 
-    public void changeStatus() {
+    private void statusSuivant() {
         switch (statusActuel) {
             case SUSCEPTIBLE:
                 statusActuel = Status.EXPOSED;
@@ -70,6 +70,15 @@ public final class Individu {
             case RECOVERED:
                 statusActuel = Status.SUSCEPTIBLE;
                 break;
+        }
+    }
+
+    public void changerStatusAvecDelai() {
+        if (isDelaiStatusDepasse()) {
+            statusSuivant();
+            resetJoursStatusActuel();
+        } else {
+            increaseJoursStatusActuel();
         }
     }
 

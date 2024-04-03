@@ -1,4 +1,8 @@
 
+// ? Le fonctionnement pourrait être que pour chaque individu :
+// ? - Si l'individu est susceptible, on regarde s'il a des voisins infectés. Si c'est le cas, on le passe en état exposé.
+// ? - Sinon, on modifie le temps d'exposition de l'individu. 
+// ? - On déplace l'individu dans une liste aléatoire de la grille.
 
 
 public class Simulation {
@@ -65,6 +69,12 @@ public class Simulation {
     public void run() {
         initialiserIndividus();
         infectionInitiale(20);
+
+        Boolean continuer = true;
+
+        while (continuer) {
+            
+        }
 
     }
 
