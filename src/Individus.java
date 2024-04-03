@@ -39,7 +39,7 @@ public final class Individus {
     }
 
 
-    public static Individus createIndividus(ArrayList<Individu> individus) {
+    public static Individus createIndividusFromArray(ArrayList<Individu> individus) {
         Individus individusTemporaire = new Individus();
 
         for (Individu individu : individus) {

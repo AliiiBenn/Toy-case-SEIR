@@ -1,8 +1,6 @@
 import java.util.ArrayList;
 
 
-// TODO: Avoir la possibilité de récupérer les voisins d'une liste d'individus
-// TODO: Ajouter le système de déplacement d'un individu précis d'une liste. On peut stocker temporairement l'individu dans une variable temporaire puis l'affecter à une autre liste tout en le supprimant de la liste d'origine. 
 
 // ? Le fonctionnement pourrait être que pour chaque individu :
 // ? - Si l'individu est susceptible, on regarde s'il a des voisins infectés. Si c'est le cas, on le passe en état exposé.
@@ -10,14 +8,8 @@ import java.util.ArrayList;
 // ? - On déplace l'individu dans une liste aléatoire de la grille.
 
 
-// TODO: Créer une méthode qui récupère les voisins d'une liste d'individus (la liste actuelle est aussi incluse)
-// TODO: Créer une méthode pour vérifier si un individu parmi une liste d'individus est infecté
-// TODO: Créer une méthode pour déplacer un individu d'une liste à une autre
-// TODO: Créer une méthode pour selectionner une liste aléatoire de la grille
 
 
-// TODO: Créer une méthode qui crée une grille d'individus vide (sans individus) avec une taille donnée
-// TODO: Créer une méthode pour ajouter un individu à une liste d'individus aléatoire de la grille
 
 
 public final class Grille {
@@ -79,7 +71,7 @@ public final class Grille {
      * 
      */
     public boolean isVoisinInfecte(ArrayList<Individu> voisins) {
-        Individus individus = Individus.createIndividus(voisins);
+        Individus individus = Individus.createIndividusFromArray(voisins);
 
         return individus.isSomeoneInfected();
     }
@@ -123,8 +115,8 @@ public final class Grille {
         grille.get(x).get(y).addNewIndividu(individu);
     }
 
-    public ArrayList<Individu> getIndividus(int x, int y) {
-        return grille.get(x).get(y).getIndividus();
+    public Individus getIndividus(int x, int y) {
+        return grille.get(x).get(y);
     }
 
 

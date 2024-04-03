@@ -12,9 +12,15 @@ public final class Individu {
     private int dI;
     private int dR;
 
+    private int daysInCurrentStatus = 0;
 
-    private Individu(Status statusActuel, int dE, int dI, int dR) {
+
+    private Individu(Status statusActuel) {
         this.statusActuel = statusActuel;
+
+        this.dE = (int) GenerateurAleatoire.exponentialNegation(3);
+        this.dI = (int) GenerateurAleatoire.exponentialNegation(7);
+        this.dR = (int) GenerateurAleatoire.exponentialNegation(365);
     }
 
     public Status getStatusActuel() {
@@ -22,26 +28,52 @@ public final class Individu {
     }
 
     public void setStatusActuel(Status statusActuel) {
-        
         this.statusActuel = statusActuel;
     }
 
-    public int getdE() {
-        return dE;
+    public int getDaysInCurrentStatus() {
+        return daysInCurrentStatus;
     }
 
-    public int getdI() {
-        return dI;
+    public void increaseDaysInCurrentStatus() {
+        daysInCurrentStatus++;
     }
 
-    public int getdR() {
-        return dR;
+    public void resetDaysInCurrentStatus() {
+        daysInCurrentStatus = 0;
+    }
+
+    public Boolean isReadyToChangeStatus() {
+        switch (statusActuel) {
+            case EXPOSED:
+                return daysInCurrentStatus >= dE;
+            case INFECTED:
+                return daysInCurrentStatus >= dI;
+            case RECOVERED:
+                return daysInCurrentStatus >= dR;
+            default:
+                return false;
+        }
+    }
+
+    public void changeStatus() {
+        switch (statusActuel) {
+            case SUSCEPTIBLE:
+                statusActuel = Status.EXPOSED;
+                break;
+            case EXPOSED:
+                statusActuel = Status.INFECTED;
+                break;
+            case INFECTED:
+                statusActuel = Status.RECOVERED;
+                break;
+            case RECOVERED:
+                statusActuel = Status.SUSCEPTIBLE;
+                break;
+        }
     }
 
     public static Individu createIndividu() {
-        int valeurDefautTemporaire = 1;
-
-        return new Individu(Status.SUSCEPTIBLE, valeurDefautTemporaire, valeurDefautTemporaire, valeurDefautTemporaire);
-
+        return new Individu(Status.SUSCEPTIBLE);
     }
 }
