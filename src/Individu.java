@@ -10,7 +10,7 @@ public final class Individu {
 
     private int dE;
     private int dI;
-    private int dR;
+    public int dR;
 
     private int joursStatusActuel = 0;
 

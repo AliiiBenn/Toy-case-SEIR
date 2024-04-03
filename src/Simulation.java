@@ -4,6 +4,7 @@
 // ? - Sinon, on modifie le temps d'exposition de l'individu. 
 // ? - On déplace l'individu dans une liste aléatoire de la grille.
 
+import java.util.ArrayList;
 
 public class Simulation {
     private final int NB_LIGNES = 300;
@@ -73,11 +74,33 @@ public class Simulation {
         Boolean continuer = true;
 
         while (continuer) {
-            
+            for (int i = 0; i < NB_LIGNES; i++) {
+                for (int j = 0; j < NB_COLONNES; j++) {
+                    Individus individus = grille.getIndividus(i, j);
+
+                    for (Individu individu : individus.getIndividus()) {
+                        if (individu.getStatusActuel() == Status.SUSCEPTIBLE) {
+                            ArrayList<Individu> voisins = grille.getVoisins(i, j);
+
+
+                            if (grille.isVoisinInfecte(voisins)) {
+                                individu.setStatusActuel(Status.EXPOSED);
+                            } else {
+                                individu.changerStatusAvecDelai();
+                            }
+                        } else {
+                            individu.changerStatusAvecDelai();
+                            System.out.println(individu + " " + individu.getStatusActuel() + " " + individu.getJoursStatusActuel() + " jours" + "--" + individu.dR);
+                        }
+
+                    }
+                }
+
+            }
+
+           
+
+
         }
-
     }
-
-
-
 }
